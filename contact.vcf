@@ -1,5 +1,12 @@
-Чириков Иван Леонидович
-Региональный Тренер Данные и Технологии
-+79833002009
-@Ivan10off
-i.chirikov@2Gis.ru
+BEGIN:VCARD
+VERSION:3.0
+N:Чириков;Иван;Леонидович;;
+FN:Иван Чириков
+ORG:2ГИС
+TITLE:Региональный тренер, Данные и Технологии
+TEL;TYPE=CELL,VOICE:+79833002009
+EMAIL;TYPE=WORK:i.chirikov@2gis.ru
+ADR;TYPE=WORK:;;;Новосибирск;;;Россия
+X-SOCIALPROFILE;TYPE=telegram:https://t.me/Ivan10off
+NOTE:API 2ГИС, данные компаний, векторные данные, геоаналитика
+END:VCARD
