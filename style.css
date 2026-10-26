@@ -1,26 +1,13 @@
 :root {
-  --bg: #F2F4F1;
-  --surface: #FFFFFF;
-  --ink: #16231C;
-  --muted: #5B6B62;
-  --line: #D9DFDA;
-  --accent: #1E9E4A;
-  --accent-ink: #FFFFFF;
+  --bg: #0F1613;
+  --surface: #17211C;
+  --ink: #E8EFEA;
+  --muted: #93A59A;
+  --line: #26352D;
+  --accent: #3CC070;
+  --accent-ink: #0B1510;
   --radius: 14px;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0F1613;
-    --surface: #17211C;
-    --ink: #E8EFEA;
-    --muted: #93A59A;
-    --line: #26352D;
-    --accent: #3CC070;
-    --accent-ink: #0B1510;
-    color-scheme: dark;
-  }
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -50,28 +37,38 @@ body {
 }
 
 /* Hero */
-.hero {
+.hero { text-align: center; }
+
+.banner {
   position: relative;
-  padding: 40px 24px 28px;
-  text-align: center;
-  isolation: isolate;
+  height: 170px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #123222, #0F1613);
 }
 
-.contours {
-  position: absolute;
-  inset: 0 0 auto 0;
+.banner img {
   width: 100%;
-  height: 220px;
-  color: var(--accent);
-  opacity: 0.28;
-  z-index: -1;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.8s ease;
+}
+
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 45%, var(--surface));
+  pointer-events: none;
 }
 
 .avatar {
   position: relative;
+  z-index: 1;
   width: 132px;
   height: 132px;
-  margin: 0 auto 20px;
+  margin: -66px auto 20px;
   border-radius: 50%;
   border: 4px solid var(--surface);
   background: var(--bg);
@@ -79,6 +76,7 @@ body {
   display: grid;
   place-items: center;
   box-shadow: 0 0 0 1px var(--line);
+  transition: transform 0.3s ease;
 }
 
 .avatar img {
@@ -94,6 +92,8 @@ body {
   font-weight: 600;
   color: var(--accent);
 }
+
+.hero-body { padding: 0 24px 28px; }
 
 h1 {
   margin: 0;
@@ -130,10 +130,8 @@ h1 {
   font: inherit;
   font-weight: 500;
   text-decoration: none;
-  transition: border-color 0.15s, background-color 0.15s;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
-
-.btn:hover { border-color: var(--accent); }
 
 .btn:focus-visible,
 a:focus-visible {
@@ -150,6 +148,7 @@ a:focus-visible {
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: transform 0.2s ease;
 }
 
 .btn-primary {
@@ -159,8 +158,6 @@ a:focus-visible {
   color: var(--accent-ink);
   font-weight: 600;
 }
-
-.btn-primary:hover { background: var(--accent); filter: brightness(1.06); }
 
 .actions {
   display: grid;
@@ -194,8 +191,10 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 14px 0;
+  padding: 14px 0 14px 0;
   border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  transition: padding-left 0.25s ease, border-color 0.25s ease;
 }
 
 .help li:last-child { border-bottom: 0; padding-bottom: 0; }
@@ -216,11 +215,35 @@ h2 {
   color: var(--muted);
 }
 
+/* Hover-анимации: только на ПК (мышь), на телефонах не действуют */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn-primary:hover { filter: brightness(1.08); }
+
+  .btn:hover svg { transform: scale(1.12); }
+
+  .btn:active { transform: translateY(-1px); }
+
+  .help li:hover {
+    padding-left: 12px;
+    border-left-color: var(--accent);
+  }
+
+  .hero:hover .banner img { transform: scale(1.05); }
+
+  .avatar:hover { transform: scale(1.04); }
+}
+
 @media (max-width: 380px) {
   .actions { grid-template-columns: 1fr; }
   h1 { font-size: 26px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn { transition: none; }
+  * { transition: none !important; }
 }
